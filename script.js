@@ -50,32 +50,31 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       })
       .then(res => res.json())
-     .then(data => {
-  loader.style.display = "none";
+      .then(data => {
+        loader.style.display = "none";
 
-  const imageName = data.image_name || "No image name provided";
-  const ingredients = Array.isArray(data.ingredients) && data.ingredients.length > 0
-    ? data.ingredients.join(", ")
-    : "No ingredients detected";
+        const imageName = data.image_name || "No image name provided";
+        const ingredients = Array.isArray(data.ingredients) && data.ingredients.length > 0
+          ? data.ingredients.join(", ")
+          : "No ingredients detected";
 
-  const recipes = Array.isArray(data.recipes) && data.recipes.length > 0
-    ? data.recipes.map(recipe => `<li>${recipe}</li>`).join("")
-    : "<li>No recipes available</li>";
+        const recipes = Array.isArray(data.recipes) && data.recipes.length > 0
+          ? data.recipes.map(recipe => `<li>${recipe}</li>`).join("")
+          : "<li>No recipes available</li>";
 
-  // If everything is missing, show a friendly fallback
-  if (!data.image_name && !data.ingredients && !data.recipes) {
-    results.innerHTML = `
-      <strong>No results found.</strong><br/>
-      Please try uploading a clearer fridge photo or check your connection.
-    `;
-  } else {
-    results.innerHTML = `
-      <strong>Image:</strong> ${imageName}<br/>
-      <strong>Ingredients:</strong> ${ingredients}<br/>
-      <strong>Recipes:</strong><ul>${recipes}</ul>
-    `;
-  }
-});
+        if (!data.image_name && !data.ingredients && !data.recipes) {
+          results.innerHTML = `
+            <strong>No results found.</strong><br/>
+            Please try uploading a clearer fridge photo or check your connection.
+          `;
+        } else {
+          results.innerHTML = `
+            <strong>Image:</strong> ${imageName}<br/>
+            <strong>Ingredients:</strong> ${ingredients}<br/>
+            <strong>Recipes:</strong><ul>${recipes}</ul>
+          `;
+        }
+      })
       .catch(err => {
         loader.style.display = "none";
         results.textContent = "Upload or analysis failed: " + err.message;
