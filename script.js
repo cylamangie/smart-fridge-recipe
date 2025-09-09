@@ -1,5 +1,4 @@
-
-  document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const imageInput = document.getElementById("imageUpload");
   const preview = document.getElementById("preview");
   const loader = document.getElementById("loader");
@@ -53,18 +52,17 @@
       .then(res => res.json())
       .then(data => {
         loader.style.display = "none";
+
+        const ingredients = Array.isArray(data.ingredients) ? data.ingredients.join(", ") : "None found";
+        const recipes = Array.isArray(data.recipes)
+          ? data.recipes.map(recipe => `<li>${recipe}</li>`).join("")
+          : "<li>No recipes available</li>";
+
         results.innerHTML = `
           <strong>Image:</strong> ${data.image_name}<br/>
-          <strong>Ingredients:</strong> ${data.ingredients.join(", ")}<br/>
-          <strong>Recipes:</strong><ul>
-            ${data.recipes.map(recipe => `<li>${recipe}</li>`).join("")}
-          </ul>
+          <strong>Ingredients:</strong> ${ingredients}<br/>
+          <strong>Recipes:</strong><ul>${recipes}</ul>
         `;
       })
       .catch(err => {
-        loader.style.display = "none";
-        results.textContent = "Upload or analysis failed: " + err.message;
-      });
-  });
-});
-
+        loader.style
