@@ -1,6 +1,5 @@
 
-
-document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", () => {
   const imageInput = document.getElementById("imageUpload");
   const preview = document.getElementById("preview");
   const loader = document.getElementById("loader");
@@ -68,3 +67,4 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   });
 });
+
