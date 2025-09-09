@@ -14,7 +14,7 @@ imageInput.addEventListener("change", () => {
 
 // Handle Analyze button click
 document.getElementById("analyzeBtn").addEventListener("click", () => {
-  const file = imageInput.files[0];
+  const file = imageInput.files[0]; // ✅ Define 'file' here
   if (!file) {
     results.textContent = "Please upload an image first.";
     return;
