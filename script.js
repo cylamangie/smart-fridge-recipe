@@ -24,7 +24,7 @@ document.getElementById("analyzeBtn").addEventListener("click", () => {
   results.textContent = "";
 
   // Send image name to AWS Lambda via API Gateway
-  fetch("https://vjvypkvq545.execute-api.ap-southeast-2.amazonaws.com/analyze", {
+  fetch("https://wipvyq4x55.execute-api.ap-southeast-2.amazonaws.com/analyze", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
