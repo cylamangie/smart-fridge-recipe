@@ -53,11 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(data => {
         loader.style.display = "none";
 
-        const ingredients = Array.isArray(data.ingredients) && data.ingredients.length > 0
-          ? data.ingredients.join(", ")
-          : "No ingredients detected";
-
-        const recipes = Array.isArray(data.recipes) && data.recipes.length > 0
+        const ingredients = Array.isArray(data.ingredients) ? data.ingredients.join(", ") : "None found";
+        const recipes = Array.isArray(data.recipes)
           ? data.recipes.map(recipe => `<li>${recipe}</li>`).join("")
           : "<li>No recipes available</li>";
 
