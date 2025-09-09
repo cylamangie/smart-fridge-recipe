@@ -23,5 +23,5 @@ This project is currently a prototype. You can simulate the backend response usi
 - Add voice interaction for hands-free cooking
 
 ## Author
-Built by cYan for the F&B Innovation challenge.
+Built by C.Y. Lam for the F&B Innovation challenge.
 # smart-fridge-recipe
