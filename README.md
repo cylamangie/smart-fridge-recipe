@@ -24,4 +24,3 @@ This project is currently a prototype. You can simulate the backend response usi
 
 ## Author
 Built by C.Y. Lam for the F&B Innovation challenge.
-# smart-fridge-recipe
