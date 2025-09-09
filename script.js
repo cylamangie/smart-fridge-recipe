@@ -1,20 +1,5 @@
-const imageInput = document.getElementById("imageUpload");
-const preview = document.getElementById("preview");
-const loader = document.getElementById("loader");
-const results = document.getElementById("results");
-
-// Show image preview when file is selected
-imageInput.addEventListener("change", () => {
-  const file = imageInput.files[0];
-  if (file) {
-    preview.src = URL.createObjectURL(file);
-    preview.style.display = "block";
-  }
-});
-
-// Handle Analyze button click
 document.getElementById("analyzeBtn").addEventListener("click", () => {
-  const file = imageInput.files[0]; // ✅ Define 'file' here
+  const file = imageInput.files[0];
   if (!file) {
     results.textContent = "Please upload an image first.";
     return;
@@ -23,20 +8,32 @@ document.getElementById("analyzeBtn").addEventListener("click", () => {
   loader.style.display = "block";
   results.textContent = "";
 
-  // Send image name to AWS Lambda via API Gateway
-  fetch("https://wipvyq4x55.execute-api.ap-southeast-2.amazonaws.com/analyze", {
+  // Step 1: Get pre-signed URL
+  fetch("https://YOUR_API_GATEWAY_URL/get-upload-url", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ image_name: file.name })
   })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
+    .then(res => res.json())
+    .then(data => {
+      const uploadUrl = data.upload_url;
+
+      // Step 2: Upload image to S3
+      return fetch(uploadUrl, {
+        method: "PUT",
+        headers: { "Content-Type": file.type },
+        body: file
+      });
     })
+    .then(() => {
+      // Step 3: Call analysis Lambda
+      return fetch("https://YOUR_ANALYSIS_API_URL/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ image_name: file.name })
+      });
+    })
+    .then(res => res.json())
     .then(data => {
       loader.style.display = "none";
       results.innerHTML = `
@@ -47,8 +44,8 @@ document.getElementById("analyzeBtn").addEventListener("click", () => {
         </ul>
       `;
     })
-    .catch(error => {
+    .catch(err => {
       loader.style.display = "none";
-      results.textContent = "Error connecting to backend: " + error.message;
+      results.textContent = "Upload or analysis failed: " + err.message;
     });
 });
