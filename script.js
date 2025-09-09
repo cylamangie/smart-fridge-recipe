@@ -9,7 +9,7 @@ document.getElementById("analyzeBtn").addEventListener("click", () => {
   results.textContent = "";
 
   // Step 1: Get pre-signed URL
-  fetch("https://YOUR_API_GATEWAY_URL/get-upload-url", {
+  fetch("https://9sn2drfprj.execute-api.ap-southeast-2.amazonaws.com/get-upload-url", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ image_name: file.name })
@@ -27,7 +27,7 @@ document.getElementById("analyzeBtn").addEventListener("click", () => {
     })
     .then(() => {
       // Step 3: Call analysis Lambda
-      return fetch("https://YOUR_ANALYSIS_API_URL/analyze", {
+      return fetch("https://wipvyq4x55.execute-api.ap-southeast-2.amazonaws.com/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ image_name: file.name })
