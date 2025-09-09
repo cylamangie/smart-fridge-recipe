@@ -10,10 +10,16 @@
   <div class="container">
     <h1>Smart Fridge Recipe</h1>
     <p>Upload your fridge image and get recipe suggestions!</p>
+
     <input type="file" id="imageUpload" />
+    <img id="preview" src="" alt="Image preview" style="max-width: 100%; margin-top: 20px; display: none;" />
+
     <button id="analyzeBtn">Analyze</button>
-    <pre id="results"></pre>
+    <div id="loader" style="display: none;">🔄 Analyzing...</div>
+
+    <div id="results" class="results-box"></div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
