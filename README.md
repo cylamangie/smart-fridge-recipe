@@ -1,6 +1,6 @@
-# Smart Fridge Recipe
+# FridgeChef AI
 
-Smart Fridge Recipe is an AI-powered assistant that helps users turn leftover ingredients into delicious meals. Just upload a photo of your fridge, and get instant recipe suggestions.
+FridgeChef AI is an AI-powered assistant that helps users turn leftover ingredients into delicious meals. Just upload a photo of your fridge, and get instant recipe suggestions.
 
 ## Features
 - Upload fridge image
